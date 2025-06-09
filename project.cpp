@@ -110,3 +110,70 @@ sClient ReadNewClient()
     cin>>Client.AccountBalance;
     return (Client);
 }
+
+vector<sClient> LoadClientsFDataFromFile(string FileName)
+{
+    vector<sClient> vClients;
+    fstream MyFile;
+    MyFile.open(FileName, ios::in);
+    if (MyFile.is_open())
+    {
+        string  Line;
+        sClient  Client;
+
+        while(getline (MyFile,  Line))
+        {
+            Client  = ConvertLinetoRecord(Line);
+            vClients.push_back(Client);
+        }
+        MyFile.close();
+    }
+    return (vClients);
+}
+
+void    PrintClientRecordLine(sClient   Client)
+{
+    cout<<"| "<<setw(15)<<left<<Client.AccountNumber;
+    cout<<"| "<<setw(10)<<left<<Client.PinCode;
+    cout<<"| "<<setw(40)<<left<<Client.Name;
+    cout<<"| "<<setw(12)<<left<<Client.Phone;
+    cout<<"| "<<setw(12)<<left<<Client.AccountBalance;
+}
+
+void    ShowAllClientsScreen()
+{
+    vector<sClient> vClients = LoadClientsFDataFromFile(ClientsFileName);
+    cout<<"\n\t\t\t\tClient List ("<< vClients.size()<<") Clients.";
+    cout <<"\n_______________________________________________________";
+    cout << "_________________________________________\n" << endl;
+    cout<<"| "<<left<<setw(15)<<"Accout Number";
+    cout<<"| "<<setw(10)<<left<<"Pin Code";
+    cout<<"| "<<setw(40)<<left<<"Client Name";
+    cout<<"| "<<setw(12)<<left<<"Phone";
+    cout<<"| "<<setw(12)<<left<<"Balance";
+    cout <<"\n_______________________________________________________";
+    cout << "_________________________________________\n" << endl;
+
+    if(vClients.size() == 0)
+    {
+        cout<<"\t\t\t\tNo Clients Available In the System!";
+    }
+    else
+    {
+        for(sClient Client : vClients)
+        {
+            PrintClientRecordLine(Client);
+            cout<<endl;
+        }
+    }
+    cout <<"\n_______________________________________________________";
+    cout << "_________________________________________\n" << endl;
+
+}
+
+void    PrintClientCard(sClient Client)
+{
+    cout<<"\nThe following are the client details:\n";
+    cout<<"-----------------------------------";
+    cout<<"\nAccout Number: " <<
+}
